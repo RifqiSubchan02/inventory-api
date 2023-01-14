@@ -6,7 +6,7 @@ interface SuccessPayload {
   message: string
   status: number
   data?: object | ReadonlyArray<object>
-  totalData?: number
+  totalCount?: number
   page?: number
   pageSize?: number
 }
@@ -25,7 +25,7 @@ const successResponse = ({
   message,
   data,
   status,
-  totalData,
+  totalCount,
   page,
   pageSize,
 }: SuccessPayload) => {
@@ -33,7 +33,7 @@ const successResponse = ({
     status,
     message,
     data,
-    totalData,
+    totalCount,
     page:
       page !== undefined && pageSize !== undefined
         ? page / pageSize + 1

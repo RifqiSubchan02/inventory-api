@@ -29,7 +29,7 @@ async function getAllUser(
         createdAt: true,
       },
       where: {
-        role: 'USER',
+        // role: 'USER',
       },
     })
 
@@ -40,7 +40,7 @@ async function getAllUser(
       message: 'Get All User',
       data: users,
       status: 200,
-      totalData: userCount,
+      totalCount: userCount,
       page: skip,
       pageSize: take,
     })
