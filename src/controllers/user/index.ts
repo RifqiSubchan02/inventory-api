@@ -11,10 +11,7 @@ type ReqQuery = {
   pageSize?: string
 }
 
-async function getAllUser(
-  req: Request<any, any, any, ReqQuery>,
-  res: Response
-) {
+async function getAll(req: Request<any, any, any, ReqQuery>, res: Response) {
   try {
     const { take, skip } = pagination(req)
 
@@ -27,20 +24,21 @@ async function getAllUser(
         name: true,
         role: true,
         createdAt: true,
+        updatedAt: true,
       },
       where: {
         // role: 'USER',
       },
     })
 
-    const userCount = await prisma.user.count()
+    const totalCount = await prisma.user.count()
 
     successResponse({
       res,
       message: 'Get All User',
       data: users,
       status: 200,
-      totalCount: userCount,
+      totalCount,
       page: skip,
       pageSize: take,
     })
@@ -54,7 +52,7 @@ async function getAllUser(
   }
 }
 
-async function getUserDetail(req: Request, res: Response) {
+async function getDetail(req: Request, res: Response) {
   const { id } = req.params
   try {
     const user = await prisma.user.findUnique({
@@ -91,4 +89,4 @@ async function getUserDetail(req: Request, res: Response) {
   }
 }
 
-export default { getAllUser, getUserDetail }
+export default { getAll, getDetail }

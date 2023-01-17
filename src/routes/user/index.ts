@@ -5,7 +5,7 @@ import { verify } from '@/middlewares'
 
 const router: Router = Router()
 
-router.get('/', verify.admin, user.getAllUser)
-router.get('/:id', verify.admin, user.getUserDetail)
+router.get('/', verify.admin, user.getAll)
+router.get('/:id', verify.admin, user.getDetail)
 
 export default router
