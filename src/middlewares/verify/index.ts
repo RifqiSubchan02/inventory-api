@@ -23,16 +23,16 @@ const admin = (req: Request, res: Response, next: NextFunction) => {
       process.env.TOKEN_SECRET as string
     ) as JwtPayload
 
-    if (payloadToken.role !== 'ADMIN') {
-      return errorResponse({
-        res,
-        message: 'Access forbidden',
-        status: 403,
-        error: {
-          message: 'Only admin can access this route',
-        },
-      })
-    }
+    // if (payloadToken.role !== 'ADMIN') {
+    //   return errorResponse({
+    //     res,
+    //     message: 'Access forbidden',
+    //     status: 403,
+    //     error: {
+    //       message: 'Only admin can access this route',
+    //     },
+    //   })
+    // }
 
     ;(req as AuthRequest).user = payloadToken
 

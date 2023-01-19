@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+import bcrypt from 'bcryptjs'
 import { PrismaClient } from '@prisma/client'
 
 import { myResponse, pagination } from '@/helpers'
@@ -15,7 +16,7 @@ async function getAll(req: Request<any, any, any, ReqQuery>, res: Response) {
   try {
     const { take, skip } = pagination(req)
 
-    const users = await prisma.user.findMany({
+    const employees = await prisma.employee.findMany({
       take: take,
       skip: skip,
       select: {
@@ -31,12 +32,12 @@ async function getAll(req: Request<any, any, any, ReqQuery>, res: Response) {
       },
     })
 
-    const totalCount = await prisma.user.count()
+    const totalCount = await prisma.employee.count()
 
     successResponse({
       res,
-      message: 'Get All User',
-      data: users,
+      message: 'Get All Employees',
+      data: employees,
       status: 200,
       totalCount,
       page: skip,
@@ -55,7 +56,7 @@ async function getAll(req: Request<any, any, any, ReqQuery>, res: Response) {
 async function getDetail(req: Request, res: Response) {
   const { id } = req.params
   try {
-    const user = await prisma.user.findUnique({
+    const employee = await prisma.employee.findUnique({
       where: { id },
       select: {
         id: true,
@@ -66,17 +67,17 @@ async function getDetail(req: Request, res: Response) {
       },
     })
 
-    if (!user)
+    if (!employee)
       return errorResponse({
         res,
-        message: 'User not found',
+        message: 'Employee not found',
         status: 404,
       })
 
     successResponse({
       res,
-      message: 'Get User Detail',
-      data: user,
+      message: 'Get Employee Detail',
+      data: employee,
       status: 200,
     })
   } catch (error: any) {
@@ -89,4 +90,30 @@ async function getDetail(req: Request, res: Response) {
   }
 }
 
-export default { getAll, getDetail }
+async function create(req: Request, res: Response) {
+  const { email, password, name, role } = req.body
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10)
+
+    await prisma.employee.create({
+      data: {
+        email: email,
+        password: hashedPassword,
+        name: name,
+        role: role,
+      },
+    })
+
+    successResponse({ res, message: 'Create employee success', status: 200 })
+  } catch (error: any) {
+    errorResponse({
+      res,
+      message: 'Something went wrong',
+      status: 500,
+      error: error,
+    })
+  }
+}
+
+export default { getAll, getDetail, create }

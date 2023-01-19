@@ -3,7 +3,7 @@ import express, { Express, Request, Response } from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 
-import { auth, user, warehouse } from '@/routes'
+import { auth, employee, warehouse } from '@/routes'
 
 dotenv.config()
 
@@ -13,7 +13,7 @@ app.use(bodyParser.json())
 app.use(cors())
 
 app.use('/auth', auth)
-app.use('/user', user)
+app.use('/employee', employee)
 app.use('/warehouse', warehouse)
 
 app.get('/', (req: Request, res: Response) => res.send('Welcome to My API'))
