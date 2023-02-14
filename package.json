@@ -4,7 +4,7 @@
   "main": "app.ts",
   "scripts": {
     "dev": "nodemon",
-    "start": "node -r tsconfig-paths/register -r ts-node/register ./src/app.ts",
+    "start": "nodemon",
     "migrate": "npx prisma migrate dev",
     "generate": "npx prisma generate",
     "build": "rimraf dist && tsc",
