@@ -1,3 +1,5 @@
 export { default as auth } from './auth'
 export { default as employee } from './employee'
 export { default as warehouse } from './warehouse'
+export { default as product } from './product'
+export { default as brand } from './brand'

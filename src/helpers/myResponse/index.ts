@@ -5,7 +5,7 @@ interface SuccessPayload {
   res: Response
   message: string
   status: number
-  data?: object | ReadonlyArray<object>
+  data?: object | ReadonlyArray<object> | null
   totalCount?: number
   page?: number
   pageSize?: number
@@ -32,7 +32,7 @@ const successResponse = ({
   res.status(status).send({
     status,
     message,
-    data,
+    data: data === null ? {} : data,
     totalCount,
     page:
       page !== undefined && pageSize !== undefined

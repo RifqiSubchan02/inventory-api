@@ -20,9 +20,43 @@ model Employee {
   updatedAt DateTime @updatedAt
 }
 
-model Item {
-  id   String @id @default(uuid())
-  name String
+model Brand {
+  id      Int       @id @default(autoincrement())
+  name    String
+  product Product[]
+}
+
+model Product {
+  id             String           @id @default(uuid())
+  name           String
+  brandId        Int
+  brand          Brand            @relation(fields: [brandId], references: [id])
+  attribute      Attribute[]
+  productVariant ProductVariant[]
+}
+
+model ProductVariant {
+  id          Int       @id @default(autoincrement())
+  productId   String
+  attributeId Int
+  attribute   Attribute @relation(fields: [attributeId], references: [id])
+  product     Product   @relation(fields: [productId], references: [id])
+}
+
+model Attribute {
+  id             Int              @id @default(autoincrement())
+  name           String
+  productId      String
+  product        Product          @relation(fields: [productId], references: [id])
+  attributeValue AttributeValue[]
+  productVariant ProductVariant[]
+}
+
+model AttributeValue {
+  id          Int       @id @default(autoincrement())
+  name        String
+  attribute   Attribute @relation(fields: [attributeId], references: [id])
+  attributeId Int
 }
 
 model Warehouse {

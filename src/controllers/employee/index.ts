@@ -36,7 +36,7 @@ async function getAll(req: Request<any, any, any, ReqQuery>, res: Response) {
 
     successResponse({
       res,
-      message: 'Get All Employees',
+      message: 'Get all employees',
       data: employees,
       status: 200,
       totalCount,
@@ -76,7 +76,7 @@ async function getDetail(req: Request, res: Response) {
 
     successResponse({
       res,
-      message: 'Get Employee Detail',
+      message: 'Get employee detail',
       data: employee,
       status: 200,
     })
@@ -98,10 +98,10 @@ async function create(req: Request, res: Response) {
 
     await prisma.employee.create({
       data: {
-        email: email,
+        email,
         password: hashedPassword,
-        name: name,
-        role: role,
+        name,
+        role,
       },
     })
 

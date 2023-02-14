@@ -24,7 +24,7 @@ async function getAll(req: Request<any, any, any, ReqQuery>, res: Response) {
 
     successResponse({
       res,
-      message: 'Get All Warehouse',
+      message: 'Get all warehouse',
       data: warehouses,
       status: 200,
       totalCount,

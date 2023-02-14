@@ -30,7 +30,7 @@ async function login(req: Request, res: Response) {
 
     successResponse({
       res,
-      message: 'Sign in success',
+      message: 'Login success',
       status: 200,
       data: { accessToken, role: employee.role },
     })
